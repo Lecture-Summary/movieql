@@ -49,3 +49,79 @@ export default resolvers;
 ```
 
 graphql/resolvers.js 내용
+
+playground는 graphql-yoga에만 있는 것이며, postman과 비슷하다.
+
+```query
+query {
+  name
+}
+```
+
+위 쿼리문을 playground로 보내면
+
+```
+{
+  "data": {
+    "name": "hojin"
+  }
+}
+```
+
+위 결과를 얻을 수 있다.
+
+## Extending the Schema
+
+```js
+import { GraphQLServer } from "graphql-yoga";
+import resolvers from "./graphql/resolvers";
+
+const server = new GraphQLServer({
+  typeDefs: "graphql/schema.graphql",
+  resolvers,
+});
+
+server.start(() => console.log("Graphql Server Running"));
+```
+
+resolver.js
+
+```graphql
+type HoJin {
+  name: String!
+  age: Int!
+  gender: String!
+}
+
+type Query {
+  person: HoJin!
+}
+```
+
+schema.graphql
+
+```
+query {
+  person {
+    gender
+    age
+    name
+  }
+}
+```
+
+위 Query문을 보내면
+
+```
+{
+  "data": {
+    "person": {
+      "gender": "male",
+      "age": 24,
+      "name": "hojin"
+    }
+  }
+}
+```
+
+위와 같은 결과를 얻을 수 있다.
