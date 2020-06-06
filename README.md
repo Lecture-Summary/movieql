@@ -295,3 +295,78 @@ playground Query문
 ```
 
 결과
+
+## Mutation
+
+```js
+type Movie {
+  id: Int!
+  name: String!
+  score: Int!
+}
+
+type Query {
+  movies: [Movie]!
+  movie(id: Int!): Movie
+}
+
+type Mutation {
+  addMovie(name: String!, score: Int!): Movie!
+}
+```
+
+schema.graphql에서 Mutation 정의
+
+```js
+export const addMovie = (name, score) => {
+  const newMovie = {
+    id: `${movies.length + 1}`,
+    name,
+    score,
+  };
+  movies.push(newMovie);
+  return newMovie;
+};
+```
+
+db.js 에서 addMovie 함수 생성
+
+```js
+import { getMovies, getById, addMovie } from "./db";
+
+const resolvers = {
+  Query: {
+    movies: () => getMovies(),
+    movie: (_, { id }) => getById(id),
+  },
+  Mutation: {
+    addMovie: (_, { name, score }) => addMovie(name, score),
+  },
+};
+
+export default resolvers;
+```
+
+resolver.js에서 Mutation에 addMovie 함수 추가
+
+```js
+mutation {
+  addMovie(name: "RockandRolla", score: 9) {
+    name
+  }
+}
+```
+
+playground에서의 mutation문
+
+```js
+{
+  "data": {
+    "addMovie": {
+      "name": "RockandRolla"
+    }
+  }
+}
+```
+
+결과 정상적으로 추가된 것을 볼 수 있음.
