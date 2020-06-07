@@ -370,3 +370,43 @@ playground에서의 mutation문
 ```
 
 결과 정상적으로 추가된 것을 볼 수 있음.
+
+## Delete Mutation
+
+```js
+type Mutation {
+  deleteMovie(id: Int!): Boolean!
+}
+```
+
+schema.graphql 코드
+
+```js
+export const deleteMovie = (id) => {
+  const cleanedMovies = movies.filter((movie) => movie.id !== id);
+  if (movies.length > cleanedMovies.length) {
+    movies = cleanedMovies;
+    return true;
+  } else {
+    return false;
+  }
+};
+```
+
+db 코드
+
+```js
+import { deleteMovie } from "./db";
+
+const resolvers = {
+  Mutation: {
+    deleteMovie: (_, { id }) => deleteMovie(id),
+  },
+};
+
+export default resolvers;
+```
+
+resolvers.js 코드
+
+playground에서 `mutation { deleteMovie(id: 3) }` 실행시 정상적으로 id가 3인게 삭제된다.
