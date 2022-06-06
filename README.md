@@ -3,16 +3,20 @@
 
 
 ## 📝 Table of Contents
+
 - [Why GraphQL?](#1)
-- [2](#2)
+- [Apollo Server](#2)
+- [Reference](#reference)
   
 
 ## <a name="1"></a>Why GraphQL?
+
 Facebook의 모바일 앱은 2012년부터 GraphQL로 구동되었습니다.
 GraphQL의 spec은 2015년 오픈소스로 공개되었으며, 현재 페이스북, 깃허브, 핀터레스트, Shopify 등에서 사용하고 있습니다.
 
 
 ### over-fetching
+
 ```json
 movie {
     id: 11,
@@ -40,6 +44,27 @@ GraphQL을 사용하면 API에 GraphQL 쿼리를 보내고 필요한 것만 정�
 > Get many resources in a single request<br/>
 > GraphQL queries access not just the properties of one resource but also smoothly follow references between them. While typical REST APIs require loading from multiple URLs, GraphQL APIs get all the data your app needs in a single request. Apps using GraphQL can be quick even on slow mobile network connections.
 
+
+## <a name="2"></a>Apollo Server
+
+Apollo 서버는 Apollo 클라이언트를 포함한 모든 GraphQL 클라이언트와 호환되는 사양 준수의 오픈 소스 GraphQL 서버입니다. 모든 소스의 데이터를 사용할 수 있는 자체 문서화 가능한 production-ready GraphQL API를 구축하는 가장 좋은 방법입니다.
+
+```zsh
+npm i apollo-server graphql
+```
+
+모든 GraphQL 서버는 스키마를 사용하여 클라이언트가 쿼리할 수 있는 데이터 구조를 정의합니다.
+
+```js
+const typeDefs = gql`
+  type Query {
+    text: String
+    hello: String
+  }
+`
+
+const server = new ApolloServer({typeDefs})
+```
 
 ## <a name="reference"></a>Reference
 
