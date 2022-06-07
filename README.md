@@ -35,6 +35,7 @@ movie {
 GraphQL을 사용하면 API에 GraphQL 쿼리를 보내고 필요한 것만 정확히 얻을 수 있습니다.
 
 > Ask for what you need, get exactly that<br/>
+> 
 > Send a GraphQL query to your API and get exactly what you need, nothing more and nothing less. GraphQL queries always return predictable results. Apps using GraphQL are fast and stable because they control the data they get, not the server.
 
 
@@ -45,6 +46,7 @@ GraphQL을 사용하면 API에 GraphQL 쿼리를 보내고 필요한 것만 정�
 일반적인 REST API는 여러 URL에서 로딩해야 하지만 GraphQL API는 앱에 필요한 모든 데이터를 단일 request로 가져옵니다. GraphQL을 사용하는 앱은 느린 모바일 네트워크 연결에서도 빠를 수 있습니다.
 
 > Get many resources in a single request<br/>
+> 
 > GraphQL queries access not just the properties of one resource but also smoothly follow references between them. While typical REST APIs require loading from multiple URLs, GraphQL APIs get all the data your app needs in a single request. Apps using GraphQL can be quick even on slow mobile network connections.
 
 
@@ -94,9 +96,13 @@ GraphQL 객체에는 이름과 필드가 있지만, 이러한 필드는 구체�
 위 쿼리에서는 `User`의 `id, username`, `Tweet`의 `id, text` 필드가 Scalar Type 입니다.
 
 > - Int: A signed 32‐bit integer.
+> 
 > - Float: A signed double-precision floating-point value.
+> 
 > - String: A UTF‐8 character sequence.
+> 
 > - Boolean: true or false.
+> 
 > - ID: The ID scalar type represents a unique identifier, often used to refetch an object or as the key for a cache. The ID type is serialized in the same way as a String; however, defining it as an ID signifies that it is not intended to be human‐readable.
 
 
@@ -125,6 +131,39 @@ name은 String 타입을 사용하고 타입 뒤에 느낌표를 추가해서 `n
 
 `!`는 서버가 항상 이 필드에 대해 null이 아닌 값을 반환할 것으로 예상하고 실제로 null 값을 얻게되면 클라이언트에게 문제가 발생했음을 알립니다.
 
+## Resolver
+
+Data Set(TypeDefs)를 정의했지만, Apollo Server는 query를 실행할 때마다 해당 Data Set을 사용해야한다는 것을 모릅니다. 이 문제를 해결하기 위해 Resolver를 만듭니다.
+
+Resolver는 Apollo Server에 특정 type과 관련된 데이터를 어떻게 fetch하는지 알려줍니다.
+
+```js
+const resolvers = {
+  Query: {
+    allTweets() {
+      return tweets
+    },
+    tweet(_, { id }) {
+      return tweets.find((tweet) => tweet.id === id)
+    },
+  },
+}
+
+const server = new ApolloServer({ typeDefs, resolvers })
+```
+
+Resolver의 첫번째 매개변수는 root, 두번째 매개변수는 args로 args에서 정의한 매개변수를 가져올 수 있습니다.
+
+[Resolver arguments 🚀](https://www.apollographql.com/docs/apollo-server/data/resolvers#resolver-arguments)
+
+> - parent: The return value of the resolver for this field's parent (i.e., the previous resolver in the resolver chain).<br/>For resolvers of top-level fields with no parent (such as fields of Query), this value is obtained from the rootValue function passed to Apollo Server's constructor.
+> 
+> - args: An object that contains all GraphQL arguments provided for this field.<br/>For example, when executing query{ user(id: "4") }, the args object passed to the user resolver is { "id": "4" }.
+> 
+> - context: An object shared across all resolvers that are executing for a particular operation. Use this to share per-operation state, including authentication information, dataloader instances, and anything else to track across resolvers.
+> 
+> - info: Contains information about the operation's execution state, including the field name, the path to the field from the root, and more.<br/>Its core fields are listed in the GraphQL.js source code. Apollo Server extends it with a cacheControl field.
+
 
 ## <a name="reference"></a>Reference
 
@@ -141,4 +180,6 @@ https://graphql.org/learn/schema/#scalar-types
 https://graphql.org/learn/queries/#mutations
 
 https://graphql.org/learn/schema/#lists-and-non-null
+
+https://www.apollographql.com/docs/apollo-server/data/resolvers#resolver-arguments
 
