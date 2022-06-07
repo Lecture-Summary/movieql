@@ -91,11 +91,24 @@ GraphQL 객체에는 이름과 필드가 있지만, 이러한 필드는 구체�
 
 위 쿼리에서는 `User`의 `id, username`, `Tweet`의 `id, text` 필드가 Scalar Type 입니다.
 
-- Int: A signed 32‐bit integer.
-- Float: A signed double-precision floating-point value.
-- String: A UTF‐8 character sequence.
-- Boolean: true or false.
-- ID: The ID scalar type represents a unique identifier, often used to refetch an object or as the key for a cache. The ID type is serialized in the same way as a String; however, defining it as an ID signifies that it is not intended to be human‐readable.
+> - Int: A signed 32‐bit integer.
+> - Float: A signed double-precision floating-point value.
+> - String: A UTF‐8 character sequence.
+> - Boolean: true or false.
+> - ID: The ID scalar type represents a unique identifier, often used to refetch an object or as the key for a cache. The ID type is serialized in the same way as a String; however, defining it as an ID signifies that it is not intended to be human‐readable.
+
+
+## Mutations
+
+GraphQL에 대한 대부분의 논의는 데이터 fetching에 중점을 두지만 완전한 데이터 플랫폼은 서버 측 데이터도 수정할 수 있는 방법 이 필요합니다.
+
+기술적으로 Query로 데이터 수정을 유발할 수 있습니다. 그러나 데이터 수정을 유발하는 모든 작업은 mutation을 통해 명시적으로 보내야한다는 규칙을 설정하는 것이 유용합니다.
+
+```js
+type Mutation {
+  postTweet(text: String, userId: ID): Tweet
+}
+```
 
 
 ## <a name="reference"></a>Reference
@@ -109,3 +122,6 @@ https://graphql.org/users
 https://www.apollographql.com/docs/apollo-server/
 
 https://graphql.org/learn/schema/#scalar-types
+
+https://graphql.org/learn/queries/#mutations
+
