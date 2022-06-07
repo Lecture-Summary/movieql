@@ -7,6 +7,8 @@
 - [Why GraphQL?](#1)
 - [Apollo Server](#2)
 - [Scalar Type](#3)
+- [Mutations](#4)
+- [Non-null](#5)
 - [Reference](#reference)
   
 
@@ -98,7 +100,7 @@ GraphQL 객체에는 이름과 필드가 있지만, 이러한 필드는 구체�
 > - ID: The ID scalar type represents a unique identifier, often used to refetch an object or as the key for a cache. The ID type is serialized in the same way as a String; however, defining it as an ID signifies that it is not intended to be human‐readable.
 
 
-## Mutations
+## <a name="4"></a>Mutations
 
 GraphQL에 대한 대부분의 논의는 데이터 fetching에 중점을 두지만 완전한 데이터 플랫폼은 서버 측 데이터도 수정할 수 있는 방법 이 필요합니다.
 
@@ -110,7 +112,7 @@ type Mutation {
 }
 ```
 
-## Non-null
+## <a name="5"></a>Non-null
 
 ```js
 type Character {
