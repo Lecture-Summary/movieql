@@ -110,6 +110,19 @@ type Mutation {
 }
 ```
 
+## Non-null
+
+```js
+type Character {
+  name: String!
+  appearsIn: [Episode]!
+}
+```
+
+name은 String 타입을 사용하고 타입 뒤에 느낌표를 추가해서 `null`이 아닌 것으로 표시합니다.
+
+`!`는 서버가 항상 이 필드에 대해 null이 아닌 값을 반환할 것으로 예상하고 실제로 null 값을 얻게되면 클라이언트에게 문제가 발생했음을 알립니다.
+
 
 ## <a name="reference"></a>Reference
 
@@ -124,4 +137,6 @@ https://www.apollographql.com/docs/apollo-server/
 https://graphql.org/learn/schema/#scalar-types
 
 https://graphql.org/learn/queries/#mutations
+
+https://graphql.org/learn/schema/#lists-and-non-null
 
