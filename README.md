@@ -9,6 +9,8 @@
 - [Scalar Type](#3)
 - [Mutations](#4)
 - [Non-null](#5)
+- [Resolver](#6)
+- [Docstring](#7)
 - [Reference](#reference)
   
 
@@ -131,7 +133,7 @@ name은 String 타입을 사용하고 타입 뒤에 느낌표를 추가해서 `n
 
 `!`는 서버가 항상 이 필드에 대해 null이 아닌 값을 반환할 것으로 예상하고 실제로 null 값을 얻게되면 클라이언트에게 문제가 발생했음을 알립니다.
 
-## Resolver
+## <a name="6"></a>Resolver
 
 Data Set(TypeDefs)를 정의했지만, Apollo Server는 query를 실행할 때마다 해당 Data Set을 사용해야한다는 것을 모릅니다. 이 문제를 해결하기 위해 Resolver를 만듭니다.
 
@@ -165,7 +167,7 @@ Resolver의 첫번째 매개변수는 root, 두번째 매개변수는 args로 ar
 > - info: Contains information about the operation's execution state, including the field name, the path to the field from the root, and more.<br/>Its core fields are listed in the GraphQL.js source code. Apollo Server extends it with a cacheControl field.
 
 
-## Docstring
+## <a name="7"></a>Docstring
 
 type, field, argument에 대한 설명을 제공합니다. Docstrings는 자동으로 많은 일반적인 GraphQL tools에 나타납니다.
 
