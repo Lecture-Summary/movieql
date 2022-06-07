@@ -165,6 +165,31 @@ Resolver의 첫번째 매개변수는 root, 두번째 매개변수는 args로 ar
 > - info: Contains information about the operation's execution state, including the field name, the path to the field from the root, and more.<br/>Its core fields are listed in the GraphQL.js source code. Apollo Server extends it with a cacheControl field.
 
 
+## Docstring
+
+type, field, argument에 대한 설명을 제공합니다. Docstrings는 자동으로 많은 일반적인 GraphQL tools에 나타납니다.
+
+
+```js
+"""
+Description for the User
+"""
+type User {
+  """
+  Description for first Name
+  """
+  firstName: String!
+
+  age(
+    """
+    Must be an integer
+    """
+    arg: Int
+  )
+}
+```
+
+
 ## <a name="reference"></a>Reference
 
 https://nomadcoders.co/graphql-for-beginners
@@ -183,3 +208,4 @@ https://graphql.org/learn/schema/#lists-and-non-null
 
 https://www.apollographql.com/docs/apollo-server/data/resolvers#resolver-arguments
 
+https://www.apollographql.com/docs/resources/graphql-glossary/#docstring
