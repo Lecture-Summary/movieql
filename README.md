@@ -6,6 +6,7 @@
 
 - [Why GraphQL?](#1)
 - [Apollo Server](#2)
+- [Scalar Type](#3)
 - [Reference](#reference)
   
 
@@ -66,6 +67,37 @@ const typeDefs = gql`
 const server = new ApolloServer({typeDefs})
 ```
 
+## <a name="3"></a>Scalar Type
+
+```js
+const typeDefs = gql`
+  type User {
+    id: ID
+    username: String
+  }
+  type Tweet {
+    id: ID
+    text: String
+    author: User
+  }
+  type Query {
+    allTweets: [Tweet]
+    tweet(id: ID): Tweet
+  }
+`
+```
+
+GraphQL 객체에는 이름과 필드가 있지만, 이러한 필드는 구체적인 데이터로 해석되어야 합니다. Scalar Type은 쿼리의 잎을 나타냅니다.
+
+위 쿼리에서는 `User`의 `id, username`, `Tweet`의 `id, text` 필드가 Scalar Type 입니다.
+
+- Int: A signed 32‐bit integer.
+- Float: A signed double-precision floating-point value.
+- String: A UTF‐8 character sequence.
+- Boolean: true or false.
+- ID: The ID scalar type represents a unique identifier, often used to refetch an object or as the key for a cache. The ID type is serialized in the same way as a String; however, defining it as an ID signifies that it is not intended to be human‐readable.
+
+
 ## <a name="reference"></a>Reference
 
 https://nomadcoders.co/graphql-for-beginners
@@ -76,3 +108,4 @@ https://graphql.org/users
 
 https://www.apollographql.com/docs/apollo-server/
 
+https://graphql.org/learn/schema/#scalar-types
